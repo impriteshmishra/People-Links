@@ -61,6 +61,18 @@ export const login = async (req,res)=>{
                 success:false,
             });
         };
+        const token = await jwt.sign({userId:user._id}, process.env.SECRET_KEY, {expiresIn: '1d'});
+
+        //populate each post in the post array
+        const populatePosts = await Promise.all(
+            user.posts.map( async (postId)=>{
+                const post = await Post.findById(postId);
+                if(post.author.equals(user._id)){
+                    return post;
+                }
+                return null;
+            })
+        )
 
         user = {
             _id:user._id,
@@ -70,10 +82,10 @@ export const login = async (req,res)=>{
             bio:user.bio,
             followers:user.followers,
             following:user.following,
-            posts:user.posts
+            posts:populatePosts
         }
 
-        const token = await jwt.sign({userId:user._id}, process.env.SECRET_KEY, {expiresIn: '1d'});
+       
         return res.cookie('token', token, {httpOnly:true, sameSite:'strict', maxAge: 1*24*60*60*1000}).json({
             message: `Welcome back ${user.username}`,
             success:true,
@@ -212,8 +224,8 @@ export const getSuggestedUsers = async (req,res)=>{
 
 export const followOrUnfollow = async (req, res) => {
     try {
-        const followKrneWala = req.id; // patel
-        const jiskoFollowKrunga = req.params.id; // shivani
+        const followKrneWala = req.id;
+        const jiskoFollowKrunga = req.params.id; 
         if (followKrneWala === jiskoFollowKrunga) {
             return res.status(400).json({
                 message: 'You cannot follow/unfollow yourself',
@@ -231,6 +243,7 @@ export const followOrUnfollow = async (req, res) => {
             });
         }
         // mai check krunga ki follow krna hai ya unfollow
+
         const isFollowing = user.following.includes(jiskoFollowKrunga);
         if (isFollowing) {
             // unfollow logic ayega

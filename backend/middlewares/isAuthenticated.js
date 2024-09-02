@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import message from '../models/message.model.js';
 const isAuthenticated = async (req,res,next)=>{
     try {
         const token = req.cookies.token;
