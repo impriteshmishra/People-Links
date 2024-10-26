@@ -31,6 +31,13 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        'custom-light': '0px 0px 30px 8px rgba(227,227,227,0.75)',
+        'custom-heavy': '0 10px 20px rgba(0, 0, 0, 0.5)',
+      },
+      cardBackground:{
+        'card-color': '#fff',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
