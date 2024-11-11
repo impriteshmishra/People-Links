@@ -5,6 +5,7 @@ const postSlice = createSlice({
     initialState:{
         posts:[],
         selectedPost:null,
+        userProfile:null,
     },
     reducers:{
         //action
@@ -13,6 +14,9 @@ const postSlice = createSlice({
         },
         setSelectedPost:(state,action) => {
             state.selectedPost = action.payload;
+        },
+        setUserProfile:(state, action)=>{
+            state.userProfile = action.payload;
         }
     }
 });

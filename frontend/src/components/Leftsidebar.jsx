@@ -48,6 +48,8 @@ function Leftsidebar() {
       logOutHandler();
     } else if (textType === "Make post") {
       setOpen(true);
+    } else if (textType === "Profile") {
+      navigate(`/profile/${user?._id}`);
     }
   };
 
