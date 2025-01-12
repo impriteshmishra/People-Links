@@ -96,7 +96,7 @@ function Leftsidebar() {
   ];
 
   return (
-    <div className="fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen shadow-custom-heavy bg-card-color">
+    <div className="fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen ">
       <div className="flex flex-col ">
         <h1 className="mx-3 my-3 italic font-bold text-xl cursor-pointer">
           People-Links
