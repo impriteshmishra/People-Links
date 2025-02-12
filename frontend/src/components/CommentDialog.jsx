@@ -16,6 +16,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const { selectedPost, posts } = useSelector((store) => store.post);
   const [comment, setComment] = useState([]);
   const dispatch = useDispatch();
+  const URL = import.meta.env.VITE_APP_URL_BACKEND;
 
   useEffect(() => {
     if (selectedPost) {
@@ -35,7 +36,7 @@ const CommentDialog = ({ open, setOpen }) => {
   const sendMessageHandler = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3500/api/v1/post/${selectedPost?._id}/comment`,
+        `${URL}/api/v1/post/${selectedPost?._id}/comment`,
         { text },
         {
           headers: {

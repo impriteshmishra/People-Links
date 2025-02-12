@@ -9,6 +9,7 @@ import { BiLike } from "react-icons/bi";
 const Profile = () => {
   const params = useParams();
   const userId = params.id;
+  
   useGetUserProfile(userId);
 
   const [activeTab, setActiveTab] = useState("post");

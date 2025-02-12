@@ -26,6 +26,8 @@ function Leftsidebar() {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+
   const { likeNotification } = useSelector(
     (store) => store.realTimeNotification
   );
@@ -33,7 +35,7 @@ function Leftsidebar() {
 
   const logOutHandler = async () => {
     try {
-      const res = await axios.get("http://localhost:3500/api/v1/user/logout", {
+      const res = await axios.get(`${URL}/api/v1/user/logout`, {
         withCredentials: true,
       });
       if (res.data.success) {

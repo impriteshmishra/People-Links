@@ -15,9 +15,10 @@ const Signin = () => {
     password: "",
   });
   const [loading, setLoading] = useState(false);
- const {user} = useSelector((store)=>store.auth)
+  const { user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const URL = import.meta.env.VITE_APP_URL_BACKEND;
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -27,16 +28,12 @@ const Signin = () => {
     // console.log(input);
     try {
       setLoading(true);
-      const res = await axios.post(
-        "http://localhost:3500/api/v1/user/login",
-        input,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post(`${URL}/api/v1/user/login`, input, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
       if (res.data.success) {
         dispatch(setAuthUser(res.data.user));
         navigate("/");
@@ -54,11 +51,11 @@ const Signin = () => {
     }
   };
 
-  useEffect(()=>{
-    if(user){
-      navigate('/')
+  useEffect(() => {
+    if (user) {
+      navigate("/");
     }
-  })
+  });
 
   return (
     <div className="flex items-center w-screen h-screen justify-center">

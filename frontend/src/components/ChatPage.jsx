@@ -14,13 +14,15 @@ function ChatPage() {
   const { onlineUsers, messages } = useSelector((store) => store.chat);
   const [textMessage, setTextMessage] = useState("");
   const dispatch = useDispatch();
- console.log(messages.newMessage, "messages");
+  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+
+//  console.log(messages.newMessage, "messages");
  
   // Send message handler
   const sendMessageHandler = async (receiverId) => {
     try {
       const res = await axios.post(
-        `http://localhost:3500/api/v1/message/send/${receiverId}`,
+        `${URL}/api/v1/message/send/${receiverId}`,
         { textMessage },
         {
           headers: { "Content-Type": "application/json" },
