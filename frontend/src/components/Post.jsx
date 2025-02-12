@@ -124,6 +124,18 @@ const Post = ({ post }) => {
     }
   };
 
+  const bookmarkHandler = async () => {
+    try {
+      const res = await axios.get( `http://localhost:3500/api/v1/post/${post?._id}/bookmark`, {withCredentials:true});
+      if(res.data.success){
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   return (
     <div className="my-8 w-full max-w-md mx-auto shadow-custom-light">
       <div className="flex items-center justify-between">
@@ -142,18 +154,22 @@ const Post = ({ post }) => {
             <MoreHorizontal className="cursor-pointer" />
           </DialogTrigger>
           <DialogContent className="flex flex-col items-center text-sm text-center">
-            <Button
-              variant="ghost"
-              className="cursor-pointer focus-visible:ring-transparent w-fit text-[#ED4956] font-bold"
-            >
-              unfollow
-            </Button>
-            <Button
+          {
+            post?.author?._id !== user?._id && <Button
+            variant="ghost"
+            className="cursor-pointer focus-visible:ring-transparent w-fit text-[#ED4956] font-bold"
+          >
+            unfollow
+          </Button>
+          } 
+{/* 
+          Here i implemet add to special */}
+            {/* <Button
               variant="ghost"
               className="cursor-pointer focus-visible:ring-transparent w-fit  font-bold"
             >
               Link to Special
-            </Button>
+            </Button> */}
             {user && user?._id === post?.author._id && (
               <Button
                 onClick={deletePostHandler}
@@ -197,7 +213,7 @@ const Post = ({ post }) => {
           />
           <Share2 className="cursor-pointer hover:text-gray-600" />
         </div>
-        <BookmarkPlus className="cursor-pointer hover:text-gray-600" />
+        <BookmarkPlus onClick={bookmarkHandler} className="cursor-pointer hover:text-gray-600" />
       </div>
       <span className="font-medium block mb-1">{postLike} likes</span>
       <p>

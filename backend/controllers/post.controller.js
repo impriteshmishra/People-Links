@@ -3,6 +3,7 @@ import cloudinary from "../utils/cloudinary.js";
 import { Post } from '../models/post.model.js';
 import { User } from "../models/user.model.js";
 import { Comment } from '../models/comment.model.js';
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const addNewPost = async (req, res) => {
     try {
@@ -107,7 +108,20 @@ export const likePost = async (req, res) => {
         await post.save();
 
         //implementing socket io for real time notification
-
+        const user = await User.findById(idOfPersonWhoLike).select('username profilePicture');
+        const postOwnerId = post.author.toString();
+        if(postOwnerId!==idOfPersonWhoLike){
+            // emit a notifiaction event
+            const notification = {
+                type:'like',
+                userId:idOfPersonWhoLike,
+                userDetails:user,
+                postId,
+                message:`${user.username} likes your post.`
+            }
+            const postOwnerSocketId = getReceiverSocketId(postOwnerId)
+            io.to(postOwnerSocketId).emit('notification', notification);
+        }
 
         return res.status(200).json({
             message: 'Post Liked',
@@ -137,7 +151,19 @@ export const disLikePost = async (req, res) => {
         await post.save();
 
         //implementing socket io for real time notification
-
+        const user = await User.findById(idOfPersonWhoDislike).select('username profilePicture');
+        const postOwnerId = post.author.toString();
+        if(postOwnerId!==idOfPersonWhoDislike){
+            // emit a notifiaction event
+            const notification = {
+                type:'dislike',
+                userId:idOfPersonWhoDislike,
+                userDetails:user,
+                postId
+            }
+            const postOwnerSocketId = getReceiverSocketId(postOwnerId)
+            io.to(postOwnerSocketId).emit('notification', notification);
+        }
 
         return res.status(200).json({
             message: 'Post Disliked',
