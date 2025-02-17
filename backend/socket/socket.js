@@ -9,9 +9,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors:{
-        origin:process.env.URL_FRONTEND,
+        origin:process.env.SOCKET_URL,
         methods:['GET','POST'],
-        
+
     }
 })
 
