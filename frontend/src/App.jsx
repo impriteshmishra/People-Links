@@ -55,7 +55,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io("http://localhost:3500", {
+      const socketio = io("wss://people-links.onrender.com", {
         query: {
           userId: user?._id,
         },
