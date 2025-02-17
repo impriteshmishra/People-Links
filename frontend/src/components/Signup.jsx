@@ -60,14 +60,14 @@ const Signup = () => {
     <div className="flex items-center w-screen h-screen justify-center">
       <form
         onSubmit={signupHandler}
-        className="shadow-lg flex flex-col gap-5 p-8"
+        className="shadow-lg flex flex-col gap-5 p-8 border border-blue-700 rounded-lg"
       >
         <div>
-          <h1 className="text-center font-bold text-xl">LOGO</h1>
+          <h1 className="text-center font-bold text-xl text-blue-500 italic">People-Link</h1>
           <p className="text-sm text-center">Join People-Link.</p>
         </div>
         <div>
-          <Label className="font-medium">Username</Label>
+          <Label className="font-medium">Name</Label>
           <Input
             type="text"
             name="username"
@@ -97,12 +97,12 @@ const Signup = () => {
           />
         </div>
         {loading ? (
-          <Button>
+          <Button className="bg-blue-500 hover:bg-white hover:text-blue-500 hover:border border-blue-500">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Please wait.
           </Button>
         ) : (
-          <Button type="submit">Join now</Button>
+          <Button type="submit" className="bg-blue-500 hover:bg-white hover:text-blue-500 hover:border border-blue-500">Join now</Button>
         )}
         <span className="text-center">
           Already on People-Link?{" "}

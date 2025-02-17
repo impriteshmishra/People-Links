@@ -138,8 +138,8 @@ const Post = ({ post }) => {
   }
 
   return (
-    <div className="my-8 w-full max-w-md mx-auto shadow-custom-light">
-      <div className="flex items-center justify-between">
+    <div className="my-8 w-full max-w-md mx-auto shadow-blue-500 p-2 border rounded-lg border-blue-500">
+      <div className="flex items-center justify-between border-blue-500">
         <div className="flex items-center gap-2">
           <Avatar>
             <AvatarImage src={post.author?.profilePicture} alt="post_image" />
@@ -154,7 +154,7 @@ const Post = ({ post }) => {
           <DialogTrigger asChild>
             <MoreHorizontal className="cursor-pointer" />
           </DialogTrigger>
-          <DialogContent className="flex flex-col items-center text-sm text-center">
+          <DialogContent className="flex flex-col items-center text-sm text-center rounded-xl ">
           {
             post?.author?._id !== user?._id && <Button
             variant="ghost"
@@ -212,7 +212,7 @@ const Post = ({ post }) => {
             }}
             className="cursor-pointer hover:text-gray-600"
           />
-          <Share2 className="cursor-pointer hover:text-gray-600" />
+          {/* <Share2 className="cursor-pointer hover:text-gray-600" /> */}
         </div>
         <BookmarkPlus onClick={bookmarkHandler} className="cursor-pointer hover:text-gray-600" />
       </div>

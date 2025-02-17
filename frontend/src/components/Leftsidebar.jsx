@@ -5,12 +5,15 @@ import {
   ArrowLeftToLine,
   ArrowRightToLine,
   Bell,
+  ChevronLeft,
   Home,
   LogOut,
+  Menu,
   MessageCircle,
   PlusSquare,
   Search,
   TrendingUp,
+  X,
 } from "lucide-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +29,7 @@ function Leftsidebar() {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const URL = import.meta.env.VITE_APP_URL_BACKEND;
 
   const { likeNotification } = useSelector(
@@ -70,14 +74,6 @@ function Leftsidebar() {
       text: "Home",
     },
     {
-      icon: <Search />,
-      text: "Find",
-    },
-    {
-      icon: <TrendingUp />,
-      text: "Ongoing trends",
-    },
-    {
       icon: <MessageCircle />,
       text: "Messages",
     },
@@ -105,121 +101,128 @@ function Leftsidebar() {
   ];
 
   return (
-    <div className="fixed top-0 z-10 left-0 px-4 border-r border-gray-300 w-[16%] h-screen ">
-      <div className="flex flex-col ">
-        <h1 className="mx-3 my-3 italic font-bold text-xl cursor-pointer">
-          People-Links
-          <Popover />
-        </h1>
-        <div>
-          {sidebarItems.map((item, index) => {
-            return (
-              <div
-                onClick={() => sidebarHandler(item.text)}
-                key={index}
-                className="flex items-center gap-3 relative hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-3 "
-              >
-                {item.icon}
-                <span>{item.text}</span>
+    <>
+      {!isSidebarOpen && (
+        <button
+          className="absolute top-4 left-4 p-2 z-50 text-blue-700  rounded-full lg:hidden"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? (
+            <ChevronLeft size={24} className="hidden" />
+          ) : (
+            <Menu size={24} />
+          )}
+        </button>
+      )}
 
-                {item.text === "Notification" &&
-                  likeNotification.length > 0 && (
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          size="icon"
-                          className="rounded-full h-5 w-5 absolute bottom-6 left-6 bg-red-500"
-                        >
-                          {likeNotification.length}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <div>
-                          {likeNotification.length === 0 ? (
-                            <p>No new notification</p>
-                          ) : (
-                            likeNotification.map((notification) => {
-                              return (
-                                <div
-                                  className="flex items-center gap-2"
-                                  key={notification.userId}
-                                >
-                                  <Avatar>
-                                    <AvatarImage
-                                      className="flex items-center"
-                                      src={
-                                        notification.userDetails?.profilePicture
-                                      }
-                                    />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                  </Avatar>
-                                  <p className="text-sm">
-                                    <span className="font-semibold">
-                                      {notification.userDetails?.username}{" "}
-                                    </span>{" "}
-                                    liked your post.
-                                  </p>
-                                </div>
-                              );
-                            })
-                          )}
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  )}
+      {/* this is sidebar */}
+      <div
+        className={`fixed top-0 left-0 z-50 border-r bg-white border-gray-300 md:w-15 w-64 h-screen shadow-lg transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 lg:translate-x-0 md:w-1/4 lg:w-56`}
+      >
+        <button
+          className="absolute top-4 right-0 z-50  p-1 text-blue-700 rounded-full lg:hidden"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? (
+            <ChevronLeft size={24} />
+          ) : (
+            <Menu size={24} className="hidden" />
+          )}
+        </button>
 
-                {item.text === "Messages" &&
-                  messages.length > 0 && (
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          size="icon"
-                          className="rounded-full h-5 w-5 absolute bottom-6 left-6 bg-red-500"
+        <div className="flex flex-col p-4">
+          {sidebarItems.map((item, index) => (
+            <div
+              onClick={() => sidebarHandler(item.text)}
+              key={index}
+              className="flex items-center gap-3 hover:bg-gray-100 cursor-pointer rounded-lg p-3 my-2"
+            >
+              {item.icon}
+              <span>{item.text}</span>
+
+              {item.text === "Notification" && likeNotification.length > 0 && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="icon"
+                      className="rounded-full h-5 w-5 bg-red-500 absolute left-5 "
+                    >
+                      {likeNotification.length}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    {likeNotification.length === 0 ? (
+                      <p>No new notifications</p>
+                    ) : (
+                      likeNotification.map((notification) => (
+                        <div
+                          key={notification.userId}
+                          className="flex items-center gap-2"
                         >
-                          {messages.length}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <div>
-                          {messages.length === 0 ? (
-                            <p>No new messages</p>
-                          ) : (
-                            messages.map((message) => {
-                              return (
-                                <div
-                                  className="flex items-center gap-2"
-                                  key={message.userId}
-                                >
-                                  <Avatar>
-                                    <AvatarImage
-                                      className="flex items-center"
-                                      src={
-                                        message.userDetails?.profilePicture
-                                      }
-                                    />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                  </Avatar>
-                                  <p className="text-sm">
-                                    <span className="font-semibold">
-                                      {message.userDetails?.username}{" "}
-                                    </span>{" "}
-                                    message you.
-                                  </p>
-                                </div>
-                              );
-                            })
-                          )}
+                          <Avatar>
+                            <AvatarImage
+                              src={notification.userDetails?.profilePicture}
+                            />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                          <p className="text-sm">
+                            <span className="font-semibold">
+                              {notification.userDetails?.username}
+                            </span>{" "}
+                            liked your post.
+                          </p>
                         </div>
-                      </PopoverContent>
-                    </Popover>
-                  )}
-              </div>
-            );
-          })}
+                      ))
+                    )}
+                  </PopoverContent>
+                </Popover>
+              )}
+
+              {item.text === "Messages" && messages.length > 0 && (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="icon"
+                      className="rounded-full h-5 w-5 bg-red-500 absolute left-5"
+                    >
+                      {messages.length}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    {messages.length === 0 ? (
+                      <p>No new messages</p>
+                    ) : (
+                      messages.map((message) => (
+                        <div
+                          key={message.userId}
+                          className="flex items-center gap-2"
+                        >
+                          <Avatar>
+                            <AvatarImage
+                              src={message.userDetails?.profilePicture}
+                            />
+                            <AvatarFallback>CN</AvatarFallback>
+                          </Avatar>
+                          <p className="text-sm">
+                            <span className="font-semibold">
+                              {message.userDetails?.username}
+                            </span>{" "}
+                            sent you a message.
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </PopoverContent>
+                </Popover>
+              )}
+            </div>
+          ))}
         </div>
       </div>
       <CreatePost open={open} setOpen={setOpen} />
-    </div>
+    </>
   );
 }
 

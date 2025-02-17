@@ -66,7 +66,7 @@ const CommentDialog = ({ open, setOpen }) => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} >
       <DialogContent
         onInteractOutside={() => setOpen(false)}
         className="max-w-2xl  p-0 flex flex-col "
@@ -98,18 +98,18 @@ const CommentDialog = ({ open, setOpen }) => {
                 <DialogTrigger asChild>
                   <MoreHorizontal className="cursor-pointer" />
                 </DialogTrigger>
-                <DialogContent>
-                  <Button className="bg-blue-50 hover:bg-blue-100 cursor-pointer w-full text-[#ED4956] font-bold">
+                <DialogContent className="rounded-xl ">
+                  <Button className="bg-white hover:bg-blue-100 cursor-pointer w-full text-[#ED4956] font-bold">
                     Unfollow
                   </Button>
-                  <Button className="bg-blue-50 hover:bg-blue-100 cursor-pointer w-full text-black font-bold">
+                  <Button className="bg-white hover:bg-blue-100 cursor-pointer w-full text-black font-bold">
                     Link to special
                   </Button>
                 </DialogContent>
               </Dialog>
             </div>
             <hr />
-            <div className="flex-1 overflow-y-auto max-h-96 p-4">
+            <div className="flex-1 overflow-y-auto max-h-96 ">
               {
                 comment.map((comment) => (
                   <Comment key={comment._id} comment={comment} />
