@@ -18,7 +18,8 @@ const Signin = () => {
   const { user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });

@@ -27,7 +27,8 @@ const Post = ({ post }) => {
   const [postLike, setPostLike] = useState(post.likes.length);
   const [comment, setComment] = useState(post.comments);
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   const changeEventHandler = (e) => {
     const inputText = e.target.value;

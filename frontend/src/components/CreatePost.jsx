@@ -20,7 +20,8 @@ function CreatePost({ open, setOpen }) {
   const { user } = useSelector((store) => store.auth);
   const { posts } = useSelector((store) => store.post);
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   const createPostHandler = async (e) => {
     const formData = new FormData();

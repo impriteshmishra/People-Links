@@ -16,7 +16,8 @@ const CommentDialog = ({ open, setOpen }) => {
   const { selectedPost, posts } = useSelector((store) => store.post);
   const [comment, setComment] = useState([]);
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   useEffect(() => {
     if (selectedPost) {

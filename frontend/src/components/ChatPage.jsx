@@ -16,7 +16,8 @@ function ChatPage() {
   const { onlineUsers, messages } = useSelector((store) => store.chat);
   const [textMessage, setTextMessage] = useState("");
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   //  console.log(messages.newMessage, "messages");
 

@@ -27,7 +27,8 @@ function EditProfile() {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   const fileChangeHandler = (e) => {
     const file = e.target.files?.[0];

@@ -30,7 +30,8 @@ function Leftsidebar() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  // const URL = import.meta.env.VITE_APP_URL_BACKEND;
+  const URL = 'https://people-links.onrender.com'
 
   const { likeNotification } = useSelector(
     (store) => store.realTimeNotification
