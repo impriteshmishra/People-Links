@@ -5,10 +5,12 @@ import { useDispatch } from "react-redux";
 
 const useGetAllPost = () => {
   const dispatch = useDispatch();
+  const URL = 'https://people-links.onrender.com'
+
   useEffect(() => {
     const fetchAllPost = async () => {
       try {
-        const res = await axios.get("http://localhost:3500/api/v1/post/all", {
+        const res = await axios.get(`${URL}/api/v1/post/all`, {
           withCredentials: true,
         });
         if (res.data.success) {

@@ -6,10 +6,12 @@ import { useDispatch } from "react-redux";
 
 const useGetUserProfile = (userId) => {
   const dispatch = useDispatch();
+  const URL = 'https://people-links.onrender.com'
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:3500/api/v1/user/${userId}/profile`, {
+        const res = await axios.get(`${URL}/api/v1/user/${userId}/profile`, {
           withCredentials: true,
         });
         if (res.data.success) {

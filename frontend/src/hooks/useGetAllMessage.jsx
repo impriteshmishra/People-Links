@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 const useGetAllMessage = () => {
   const dispatch = useDispatch();
   const {selectedUser} = useSelector(store=>store.auth);
+  const URL = 'https://people-links.onrender.com'
+
   useEffect(() => {
     const fetchAllMessage = async () => {
       try {
-        const res = await axios.get(`http://localhost:3500/api/v1/message/all/${selectedUser?._id}`, {
+        const res = await axios.get(`${URL}/api/v1/message/all/${selectedUser?._id}`, {
           withCredentials: true,
         });
       
